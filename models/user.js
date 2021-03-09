@@ -5,6 +5,7 @@ const userArray = [
     firstName: "ademola",
     lastName: "babatunde",
     password: "12345678",
+    gender: "male"
   },
 ];
 

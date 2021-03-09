@@ -1,5 +1,7 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
-const addNewTodoSchema = Joi.object({
-    
-})
+const todoTitleSchema = Joi.object({
+  title: Joi.string().min(3).max(100).required(),
+});
+
+module.exports = todoTitleSchema;
