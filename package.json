@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app"
+    "start": "node app"
   },
   "dependencies": {
-    "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "express": "^4.16.1",
+    "joi": "^17.4.0",
+    "morgan": "^1.9.1",
+    "uuid": "^8.3.2"
   }
 }
