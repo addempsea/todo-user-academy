@@ -31,7 +31,6 @@ const modifyTodo = (req, res) => {
 const getTodo = (req, res) => {
   try {
     const currentTodo = getSingleTodo(req.params.todoId);
-    console.log(currentTodo);
     res
       .status(200)
       .json({ status: 'success', message: 'Todo fetched ', data: currentTodo });
@@ -43,7 +42,6 @@ const getTodo = (req, res) => {
 const allTodos = (req, res) => {
   try {
     const todoList = getAllTodos();
-    console.log(todoList);
     res
       .status(200)
       .json({

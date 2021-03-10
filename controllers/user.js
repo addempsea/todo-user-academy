@@ -1,4 +1,5 @@
 const { addNewUser, getSingleUserByEmail } = require('../services');
+const { addDataToToken } = require('../utils');
 
 const registerUser = (req, res) => {
   try {
@@ -17,11 +18,12 @@ const loginUser = (req, res) => {
     const user = getSingleUserByEmail(email);
 
     if (user && user.password === password) {
-      res.status(200).json({ status: 'success', message: 'Login successful.' });
+      const token = addDataToToken({ email });
+      return res.status(200).json({ status: 'success', message: 'Login successful.', data: { token } });
     }
-    res.status(401).json({ status: 'fail', message: 'Invalid login details' });
+    return res.status(401).json({ status: 'fail', message: 'Invalid login details' });
   } catch (error) {
-    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+    return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
