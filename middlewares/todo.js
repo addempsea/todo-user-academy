@@ -16,7 +16,6 @@ const validateTodoTitle = (req, res, next) => {
 const checkIfTodoExists = (req, res, next) => {
   try {
     const selectedTodo = getSingleTodo(req.params.todoId);
-    console.log(selectedTodo);
     if (selectedTodo) {
       return next();
     }

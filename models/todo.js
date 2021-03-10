@@ -4,6 +4,7 @@ const todoArray = [
     title: 'Todo 1',
     isCompleted: false,
     ownerEmail: 'addempsea@yahoo.com',
+    createdAt: Date.now(),
   },
 ];
 

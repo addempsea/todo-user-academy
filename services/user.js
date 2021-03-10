@@ -2,7 +2,7 @@ const { v4: uuid } = require('uuid');
 const { userArray } = require('../models');
 
 const addNewUser = (data) => {
-  userArray.push({ ...data, id: uuid() });
+  userArray.push({ ...data, id: uuid(), isAdmin: false });
 };
 // user/:userId
 const getSingleUserById = (id) => userArray.find((el) => el.id === id);

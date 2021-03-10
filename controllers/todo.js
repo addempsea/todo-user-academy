@@ -4,14 +4,19 @@ const {
   getSingleTodo,
   deleteTodo,
   getAllTodos,
+  getAllTodosForSingleUser,
 } = require('../services');
 
 const createTodo = (req, res) => {
   try {
-    addNewTodo(req.body);
+    const todo = addNewTodo(req.body, req.user.email);
     res
       .status(201)
-      .json({ status: 'success', message: 'Todo added successfully.' });
+      .json({
+        status: 'success',
+        message: 'Todo added successfully.',
+        data: todo,
+      });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
@@ -41,21 +46,19 @@ const getTodo = (req, res) => {
 
 const allTodos = (req, res) => {
   try {
-    const todoList = getAllTodos();
-    res
-      .status(200)
-      .json({
-        status: 'success',
-        message: 'Todo array fetched ',
-        data: todoList,
-      });
+    const todoList = req.user.isAdmin
+      ? getAllTodos()
+      : getAllTodosForSingleUser(req.user.email);
+    res.status(200).json({
+      status: 'success',
+      message: 'Todo array fetched ',
+      data: todoList,
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        status: 'fail',
-        message: 'Something went wrong while fetching todos.',
-      });
+    res.status(500).json({
+      status: 'fail',
+      message: 'Something went wrong while fetching todos.',
+    });
   }
 };
 

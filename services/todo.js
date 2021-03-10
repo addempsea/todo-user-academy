@@ -1,9 +1,16 @@
 const { v4: uuidv4 } = require('uuid');
 const { todoArray } = require('../models');
 
-const addNewTodo = (data) => {
+const addNewTodo = (data, owner) => {
   const id = uuidv4();
-  return todoArray.push({ ...data, id, isCompleted: false });
+  const obj = {
+    ...data,
+    id,
+    isCompleted: false,
+    ownerEmail: owner,
+  };
+  todoArray.push(obj);
+  return obj;
 };
 
 const getSingleTodo = (id) => todoArray.find((el) => el.id === id);
@@ -24,6 +31,7 @@ const deleteTodo = (id) => {
 };
 
 const getAllTodos = () => todoArray;
+const getAllTodosForSingleUser = (email) => todoArray.filter((el) => el.ownerEmail === email);
 
 module.exports = {
   addNewTodo,
@@ -31,4 +39,5 @@ module.exports = {
   updateTodo,
   deleteTodo,
   getAllTodos,
+  getAllTodosForSingleUser,
 };

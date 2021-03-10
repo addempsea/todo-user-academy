@@ -12,6 +12,7 @@ const {
   updateTodo,
   deleteTodo,
   getAllTodos,
+  getAllTodosForSingleUser,
 } = require('./todo');
 
 module.exports = {
@@ -25,4 +26,5 @@ module.exports = {
   updateTodo,
   deleteTodo,
   getAllTodos,
+  getAllTodosForSingleUser,
 };
