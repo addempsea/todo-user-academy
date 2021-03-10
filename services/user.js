@@ -1,25 +1,24 @@
-const { userArray } = require("../models");
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuid } = require('uuid');
+const { userArray } = require('../models');
 
 const addNewUser = (data) => {
-  userArray.push({ ...data, id: uuidv4() });
+  userArray.push({ ...data, id: uuid() });
 };
-
+// user/:userId
 const getSingleUserById = (id) => userArray.find((el) => el.id === id);
 
-const getSingleUserByEmail = (email) =>
-  userArray.find((el) => el.email === email);
+const getSingleUserByEmail = (email) => userArray.find((el) => el.email === email);
 
 const getUserIndex = (id) => userArray.findIndex((el) => el.id === id);
 
 const updateUserProfile = (data, id) => {
-  const userDetails = getSingleUser(id);
+  const userDetails = getSingleUserById(id);
   const updatedProfile = { ...userDetails, ...data };
   const index = getUserIndex(id);
-  userDetails[index] = updatedProfile;
+  userArray[index] = updatedProfile;
   return updatedProfile;
 };
-
+// method delete user/:userId
 const deleteUser = (id) => {
   const index = getUserIndex(id);
   return userArray.splice(index, 1);

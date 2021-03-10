@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 const signupSchema = Joi.object({
   firstName: Joi.string().min(3).max(100).required(),

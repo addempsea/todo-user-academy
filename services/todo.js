@@ -1,5 +1,5 @@
-const { todoArray } = require("../models");
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require('uuid');
+const { todoArray } = require('../models');
 
 const addNewTodo = (data) => {
   const id = uuidv4();
@@ -23,9 +23,12 @@ const deleteTodo = (id) => {
   return todoArray.splice(index, 1);
 };
 
+const getAllTodos = () => todoArray;
+
 module.exports = {
   addNewTodo,
   getSingleTodo,
   updateTodo,
   deleteTodo,
+  getAllTodos,
 };

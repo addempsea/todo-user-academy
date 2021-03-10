@@ -1,6 +1,5 @@
-const Joi = require("joi");
-const { signupSchema, loginSchema } = require("../validation");
-const { getSingleUserByEmail } = require("../services");
+const { signupSchema, loginSchema } = require('../validation');
+const { getSingleUserByEmail } = require('../services');
 
 const validateSignup = (req, res, next) => {
   try {
@@ -8,9 +7,9 @@ const validateSignup = (req, res, next) => {
     if (!error) {
       return next();
     }
-    res.status(400).json({ status: "fail", message: error.message });
+    return res.status(400).json({ status: 'fail', message: error.message });
   } catch (error) {
-    res.status(500).json({ status: "fail", message: "Something went wrong." });
+    return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
@@ -20,10 +19,9 @@ const validateLogin = (req, res, next) => {
     if (!error) {
       return next();
     }
-    res.status(400).json({ status: "fail", message: error.message });
-    return next();
+    return res.status(400).json({ status: 'fail', message: error.message });
   } catch (error) {
-    res.status(500).json({ status: "fail", message: "Something went wrong." });
+    return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
@@ -33,9 +31,9 @@ const checkIfUserExists = (req, res, next) => {
     if (!user) {
       return next();
     }
-    res.status(409).json({ status: "fail", message: "user exists already." });
+    return res.status(409).json({ status: 'fail', message: 'user exists already.' });
   } catch (error) {
-    res.status(500).json({ status: "fail", message: "Something went wrong." });
+    return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
