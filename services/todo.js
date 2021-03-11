@@ -6,7 +6,6 @@ const addNewTodo = (data, owner) => {
   const obj = {
     ...data,
     id,
-    isCompleted: false,
     ownerEmail: owner,
   };
   todoArray.push(obj);

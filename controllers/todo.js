@@ -4,7 +4,6 @@ const {
   getSingleTodo,
   deleteTodo,
   getAllTodos,
-  getAllTodosForSingleUser,
 } = require('../services');
 
 const createTodo = (req, res) => {
@@ -46,9 +45,7 @@ const getTodo = (req, res) => {
 
 const allTodos = (req, res) => {
   try {
-    const todoList = req.user.isAdmin
-      ? getAllTodos()
-      : getAllTodosForSingleUser(req.user.email);
+    const todoList = getAllTodos();
     res.status(200).json({
       status: 'success',
       message: 'Todo array fetched ',

@@ -1,6 +1,6 @@
 const { validateSignup, validateLogin, checkIfUserExists } = require('./user');
 const { validateTodoTitle, checkIfTodoExists } = require('./todo');
-const { authenticate } = require('./auth');
+const { authenticate, adminAccessValidator } = require('./auth');
 
 module.exports = {
   validateLogin,
@@ -9,4 +9,5 @@ module.exports = {
   validateTodoTitle,
   checkIfTodoExists,
   authenticate,
+  adminAccessValidator,
 };
