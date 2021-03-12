@@ -5,7 +5,7 @@ const signupSchema = Joi.object({
   lastName: Joi.string().min(3).max(100).required(),
   password: Joi.string().min(7).required(),
   email: Joi.string().email().required(),
-  gender: Joi.string().min(3).max(100).required(),
+  gender: Joi.string().min(3).max(100),
 });
 
 const loginSchema = Joi.object({

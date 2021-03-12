@@ -1,3 +1,15 @@
-const { verifyToken, addDataToToken } = require('./helpers');
+const {
+  verifyToken,
+  addDataToToken,
+  comparePassword,
+  hashPassword,
+  generateUUID,
+} = require('./helpers');
 
-module.exports = { verifyToken, addDataToToken };
+module.exports = {
+  verifyToken,
+  addDataToToken,
+  comparePassword,
+  hashPassword,
+  generateUUID,
+};

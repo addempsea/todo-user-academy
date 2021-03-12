@@ -1,13 +1,20 @@
-const { v4: uuid } = require('uuid');
 const { userArray } = require('../models');
+const db = require('../db/setup');
+const { insertUser, fetchUserByEmail, fetchUserById } = require('../db/queries/user');
+const { generateUUID } = require('../utils');
 
-const addNewUser = (data) => {
-  userArray.push({ ...data, id: uuid(), isAdmin: false });
+const addNewUser = async (data) => {
+  const id = generateUUID();
+  const {
+    email, firstName, lastName, password, gender,
+  } = data;
+  return db.one(insertUser, [id, firstName, lastName, email, password, gender]);
 };
-// user/:userId
-const getSingleUserById = (id) => userArray.find((el) => el.id === id);
 
-const getSingleUserByEmail = (email) => userArray.find((el) => el.email === email);
+// user/:userId
+const getSingleUserById = async (id) => db.oneOrNone(fetchUserById, [id]);
+
+const getSingleUserByEmail = async (email) => db.oneOrNone(fetchUserByEmail, [email]);
 
 const getUserIndex = (id) => userArray.findIndex((el) => el.id === id);
 
