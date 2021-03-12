@@ -5,6 +5,8 @@ const {
   getTodo,
   deleteSelectedTodo,
   allTodos,
+  getUserTodos,
+  updateTodoStatus,
 } = require('./todo');
 
 module.exports = {
@@ -15,4 +17,6 @@ module.exports = {
   getTodo,
   deleteSelectedTodo,
   allTodos,
+  getUserTodos,
+  updateTodoStatus,
 };

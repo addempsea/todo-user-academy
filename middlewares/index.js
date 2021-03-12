@@ -1,5 +1,5 @@
 const { validateSignup, validateLogin, checkIfUserExists } = require('./user');
-const { validateTodoTitle, checkIfTodoExists } = require('./todo');
+const { validateTodoTitle, checkIfTodoExists, checkIfOwner } = require('./todo');
 const { authenticate, adminAccessValidator } = require('./auth');
 
 module.exports = {
@@ -10,4 +10,5 @@ module.exports = {
   checkIfTodoExists,
   authenticate,
   adminAccessValidator,
+  checkIfOwner,
 };

@@ -13,10 +13,22 @@ const validateTodoTitle = (req, res, next) => {
   }
 };
 
-const checkIfTodoExists = (req, res, next) => {
+const checkIfTodoExists = async (req, res, next) => {
   try {
-    const selectedTodo = getSingleTodo(req.params.todoId);
+    const selectedTodo = await getSingleTodo(req.params.todoId);
     if (selectedTodo) {
+      req.todo = selectedTodo;
+      return next();
+    }
+    return res.status(404).json({ status: 'fail', message: 'Todo does not exist.' });
+  } catch (error) {
+    return res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+};
+
+const checkIfOwner = async (req, res, next) => {
+  try {
+    if (req.todo.user_id === req.user.id) {
       return next();
     }
     return res.status(404).json({ status: 'fail', message: 'Todo does not exist.' });
@@ -28,4 +40,5 @@ const checkIfTodoExists = (req, res, next) => {
 module.exports = {
   validateTodoTitle,
   checkIfTodoExists,
+  checkIfOwner,
 };

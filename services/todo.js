@@ -1,36 +1,28 @@
-const { v4: uuidv4 } = require('uuid');
-const { todoArray } = require('../models');
+const { generateUUID } = require('../utils');
+const {
+  insertTodo, fetchTodoById, updateTodoById, deleteTodoById, fetchTodos, fetchSingleUserTodos,
+  updateTodoByIdToCompleted,
+} = require('../db/queries/todo');
+const db = require('../db/setup');
 
-const addNewTodo = (data, owner) => {
-  const id = uuidv4();
-  const obj = {
-    ...data,
-    id,
-    ownerEmail: owner,
-  };
-  todoArray.push(obj);
-  return obj;
+const addNewTodo = async (data) => {
+  const id = generateUUID();
+  const { title, userId } = data;
+  return db.one(insertTodo, [id, title, userId]);
 };
 
-const getSingleTodo = (id) => todoArray.find((el) => el.id === id);
+const getSingleTodo = async (todoId) => db.oneOrNone(fetchTodoById, [todoId]);
 
-const findTodoIndex = (id) => todoArray.findIndex((el) => el.id === id);
+const updateTodo = async (title, todoId) => db.one(updateTodoById, [title, todoId]);
 
-const updateTodo = (data, id) => {
-  const todoDetails = getSingleTodo(id);
-  const updatedTodo = { ...todoDetails, ...data };
-  const index = findTodoIndex(id);
-  todoArray[index] = updatedTodo;
-  return updatedTodo;
-};
+const deleteTodo = async (todoId) => db.none(deleteTodoById, [todoId]);
 
-const deleteTodo = (id) => {
-  const index = findTodoIndex(id);
-  return todoArray.splice(index, 1);
-};
+const getAllTodos = async () => db.manyOrNone(fetchTodos);
 
-const getAllTodos = () => todoArray;
-const getAllTodosForSingleUser = (email) => todoArray.filter((el) => el.ownerEmail === email);
+const getAllTodosForSingleUser = async (userId) => db.manyOrNone(fetchSingleUserTodos, [userId]);
+
+const updateTodoToCompleted = async (todoId, isComplete) => (
+  db.none(updateTodoByIdToCompleted, [todoId, isComplete]));
 
 module.exports = {
   addNewTodo,
@@ -39,4 +31,5 @@ module.exports = {
   deleteTodo,
   getAllTodos,
   getAllTodosForSingleUser,
+  updateTodoToCompleted,
 };

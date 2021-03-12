@@ -1,14 +1,15 @@
 const {
   addNewTodo,
   updateTodo,
-  getSingleTodo,
   deleteTodo,
   getAllTodos,
+  getAllTodosForSingleUser,
+  updateTodoToCompleted,
 } = require('../services');
 
-const createTodo = (req, res) => {
+const createTodo = async (req, res) => {
   try {
-    const todo = addNewTodo(req.body, req.user.email);
+    const todo = await addNewTodo({ title: req.body.title, userId: req.user.id });
     res
       .status(201)
       .json({
@@ -21,34 +22,33 @@ const createTodo = (req, res) => {
   }
 };
 
-const modifyTodo = (req, res) => {
+const modifyTodo = async (req, res) => {
   try {
-    updateTodo(req.body, req.params.todoId);
+    await updateTodo(req.body.title, req.params.todoId);
     res
-      .status(201)
+      .status(200)
       .json({ status: 'success', message: 'Todo edited successfully.' });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
-const getTodo = (req, res) => {
+const getTodo = async (req, res) => {
   try {
-    const currentTodo = getSingleTodo(req.params.todoId);
     res
       .status(200)
-      .json({ status: 'success', message: 'Todo fetched ', data: currentTodo });
+      .json({ status: 'success', message: 'Todo fetched ', data: req.todo });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
-const allTodos = (req, res) => {
+const allTodos = async (req, res) => {
   try {
-    const todoList = getAllTodos();
+    const todoList = await getAllTodos();
     res.status(200).json({
       status: 'success',
-      message: 'Todo array fetched ',
+      message: 'Todos fetched successfully.',
       data: todoList,
     });
   } catch (error) {
@@ -59,10 +59,38 @@ const allTodos = (req, res) => {
   }
 };
 
-const deleteSelectedTodo = (req, res) => {
+const getUserTodos = async (req, res) => {
   try {
-    deleteTodo(req.params.todoId);
+    const todos = await getAllTodosForSingleUser(req.user.id);
+    res.status(200).json({
+      status: 'success',
+      message: 'Todos fetched successfully.',
+      data: todos,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: 'Something went wrong while fetching todos.',
+    });
+  }
+};
+
+const deleteSelectedTodo = async (req, res) => {
+  try {
+    await deleteTodo(req.params.todoId);
     res.status(200).json({ status: 'success', message: 'Todo deleted ' });
+  } catch (error) {
+    res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
+  }
+};
+
+const updateTodoStatus = async (req, res) => {
+  try {
+    const status = !req.todo.is_complete;
+    await updateTodoToCompleted(req.params.todoId, status);
+    res
+      .status(200)
+      .json({ status: 'success', message: 'Todo status updated successfully.' });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
@@ -74,4 +102,6 @@ module.exports = {
   getTodo,
   deleteSelectedTodo,
   allTodos,
+  getUserTodos,
+  updateTodoStatus,
 };
