@@ -1,4 +1,4 @@
-const { verifyToken } = require('../utils');
+import { verifyToken } from '../utils';
 
 const authenticate = (req, res, next) => {
   try {
@@ -37,4 +37,4 @@ const adminAccessValidator = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, adminAccessValidator };
+export { authenticate, adminAccessValidator };

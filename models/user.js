@@ -13,6 +13,7 @@ const userSchema = new Schema(
     lastName: { type: String, required: true },
     gender: { type: String },
     password: { type: String, required: true, min: 7 },
+    profilePictureUrl: { type: String, required: true },
   },
   { timestamps: true },
 );

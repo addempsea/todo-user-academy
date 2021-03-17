@@ -3,7 +3,6 @@ import {
   updateTodoById,
   deleteTodoById,
   fetchTodos,
-  fetchSingleUserTodos,
   updateTodoByIdToCompleted,
 } from '../db/queries/todo';
 import db from '../db/setup';
@@ -29,7 +28,8 @@ const deleteTodo = async (todoId) => db.none(deleteTodoById, [todoId]);
 const getAllTodos = async () => db.manyOrNone(fetchTodos);
 // TodoModel.find()
 
-const getAllTodosForSingleUser = async (userId) => db.manyOrNone(fetchSingleUserTodos, [userId]);
+// const getAllTodosForSingleUser = async (userId) => db.manyOrNone(fetchSingleUserTodos, [userId]);
+const getAllTodosForSingleUser = async (userId) => TodoModel.find({ user: userId }).populate('user');
 
 const updateTodoToCompleted = async (todoId, isComplete) => (
   db.none(updateTodoByIdToCompleted, [todoId, isComplete]));

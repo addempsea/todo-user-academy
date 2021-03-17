@@ -1,15 +1,17 @@
-const {
+import {
+  cloudinaryConfig,
   verifyToken,
   addDataToToken,
   comparePassword,
   hashPassword,
   generateUUID,
-} = require('./helpers');
+} from './helpers';
 
-module.exports = {
+export {
   verifyToken,
   addDataToToken,
   comparePassword,
   hashPassword,
   generateUUID,
+  cloudinaryConfig,
 };

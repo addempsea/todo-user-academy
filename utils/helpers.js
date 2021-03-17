@@ -1,8 +1,25 @@
 import { sign, verify } from 'jsonwebtoken';
 import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
-// eslint-disable-next-line no-unused-vars
-import dotenv from 'dotenv/config';
+import cloudinary from 'cloudinary';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const cloudinaryConfig = async (filePath) => {
+  try {
+    const data = await cloudinary.v2.uploader.upload(filePath);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 
 const salt = genSaltSync(10);
 
@@ -19,5 +36,5 @@ const comparePassword = (plainPassword, hashedPassword) => (
 const generateUUID = () => uuid();
 
 export {
-  addDataToToken, verifyToken, comparePassword, hashPassword, generateUUID,
+  addDataToToken, verifyToken, comparePassword, hashPassword, generateUUID, cloudinaryConfig,
 };

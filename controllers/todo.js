@@ -1,3 +1,5 @@
+import { todoService } from '../services';
+
 const {
   addNewTodo,
   updateTodo,
@@ -5,18 +7,15 @@ const {
   getAllTodos,
   getAllTodosForSingleUser,
   updateTodoToCompleted,
-} = require('../services');
-
+} = todoService;
 const createTodo = async (req, res) => {
   try {
-    const todo = await addNewTodo({ title: req.body.title, userId: req.user.id });
-    res
-      .status(201)
-      .json({
-        status: 'success',
-        message: 'Todo added successfully.',
-        data: todo,
-      });
+    const todo = await addNewTodo({ title: req.body.title, user: req.user.id });
+    res.status(201).json({
+      status: 'success',
+      message: 'Todo added successfully.',
+      data: todo,
+    });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
@@ -90,13 +89,16 @@ const updateTodoStatus = async (req, res) => {
     await updateTodoToCompleted(req.params.todoId, status);
     res
       .status(200)
-      .json({ status: 'success', message: 'Todo status updated successfully.' });
+      .json({
+        status: 'success',
+        message: 'Todo status updated successfully.',
+      });
   } catch (error) {
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
 
-module.exports = {
+export {
   createTodo,
   modifyTodo,
   getTodo,
