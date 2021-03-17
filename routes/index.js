@@ -1,7 +1,7 @@
-const userRouter = require('./user');
-const todoRouter = require('./todo');
+import userRouter from './user';
+import todoRouter from './todo';
 
-module.exports = {
+export {
   userRouter,
   todoRouter,
 };

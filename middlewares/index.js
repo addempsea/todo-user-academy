@@ -1,8 +1,8 @@
-const { validateSignup, validateLogin, checkIfUserExists } = require('./user');
-const { validateTodoTitle, checkIfTodoExists, checkIfOwner } = require('./todo');
-const { authenticate, adminAccessValidator } = require('./auth');
+import { validateSignup, validateLogin, checkIfUserExists } from './user';
+import { validateTodoTitle, checkIfTodoExists, checkIfOwner } from './todo';
+import { authenticate, adminAccessValidator } from './auth';
 
-module.exports = {
+export {
   validateLogin,
   validateSignup,
   checkIfUserExists,

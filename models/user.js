@@ -1,13 +1,22 @@
-const userArray = [
-  {
-    id: '719a6c77-f46e-43ba-bbdb-fd7fa890af71',
-    email: 'addempsea@yahoo.com',
-    firstName: 'ademola',
-    lastName: 'babatunde',
-    password: '12345678',
-    gender: 'male',
-    isAdmin: true,
-  },
-];
+import mongoose from 'mongoose';
 
-module.exports = userArray;
+const { Schema } = mongoose;
+
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    gender: { type: String },
+    password: { type: String, required: true, min: 7 },
+  },
+  { timestamps: true },
+);
+
+const UserModel = mongoose.model('user', userSchema);
+
+export default UserModel;

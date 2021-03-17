@@ -1,6 +1,7 @@
-const { addNewUser, getSingleUserByEmail } = require('../services');
-const { addDataToToken, hashPassword, comparePassword } = require('../utils');
+import { userService } from '../services';
+import { addDataToToken, hashPassword, comparePassword } from '../utils';
 
+const { addNewUser, getSingleUserByEmail } = userService;
 const registerUser = async (req, res) => {
   try {
     const hashedPassword = hashPassword(req.body.password);
@@ -9,6 +10,7 @@ const registerUser = async (req, res) => {
       .status(201)
       .json({ status: 'success', message: 'Registration successful.', data: userInfo });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ status: 'fail', message: 'Something went wrong.' });
   }
 };
@@ -29,7 +31,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   loginUser,
   registerUser,
 };

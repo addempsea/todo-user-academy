@@ -1,6 +1,6 @@
-const { Router } = require('express');
+import { Router } from 'express';
 
-const {
+import {
   createTodo,
   modifyTodo,
   getTodo,
@@ -8,10 +8,14 @@ const {
   allTodos,
   getUserTodos,
   updateTodoStatus,
-} = require('../controllers');
-const {
-  validateTodoTitle, checkIfTodoExists, authenticate, adminAccessValidator, checkIfOwner,
-} = require('../middlewares');
+} from '../controllers';
+import {
+  validateTodoTitle,
+  checkIfTodoExists,
+  authenticate,
+  adminAccessValidator,
+  checkIfOwner,
+} from '../middlewares';
 
 const todoRouter = Router();
 
@@ -29,4 +33,4 @@ todoRouter.delete('/todo/:todoId', deleteSelectedTodo);
 todoRouter.get('/todo', getUserTodos);
 todoRouter.get('/todos', adminAccessValidator, allTodos);
 
-module.exports = todoRouter;
+export default todoRouter;

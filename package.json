@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app",
+    "start": "nodemon -r esm app.js",
     "lint": "eslint --ext .js ./ --fix"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.16.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",

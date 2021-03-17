@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 const signupSchema = Joi.object({
   firstName: Joi.string().min(3).max(100).required(),
@@ -13,7 +13,7 @@ const loginSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
-module.exports = {
+export {
   signupSchema,
   loginSchema,
 };

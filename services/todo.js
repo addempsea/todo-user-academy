@@ -1,16 +1,21 @@
-const { generateUUID } = require('../utils');
-const {
-  insertTodo, fetchTodoById, updateTodoById, deleteTodoById, fetchTodos, fetchSingleUserTodos,
+import {
+  fetchTodoById,
+  updateTodoById,
+  deleteTodoById,
+  fetchTodos,
+  fetchSingleUserTodos,
   updateTodoByIdToCompleted,
-} = require('../db/queries/todo');
-const db = require('../db/setup');
-const { TodoModel } = require('../models');
+} from '../db/queries/todo';
+import db from '../db/setup';
+import { TodoModel } from '../models';
 
-const addNewTodo = async (data) => {
-  const id = generateUUID();
-  const { title, userId } = data;
-  return db.one(insertTodo, [id, title, userId]);
-};
+// const addNewTodo = async (data) => {
+//   const id = generateUUID();
+//   const { title, userId } = data;
+//   return db.one(insertTodo, [id, title, userId]);
+// };
+
+const addNewTodo = async (data) => TodoModel.create(data);
 
 const getSingleTodo = async (todoId) => db.oneOrNone(fetchTodoById, [todoId]);
 // const getSingleTodoById = async (todoId) => TodoModel.findById(todoId)
@@ -29,7 +34,7 @@ const getAllTodosForSingleUser = async (userId) => db.manyOrNone(fetchSingleUser
 const updateTodoToCompleted = async (todoId, isComplete) => (
   db.none(updateTodoByIdToCompleted, [todoId, isComplete]));
 
-module.exports = {
+export {
   addNewTodo,
   getSingleTodo,
   updateTodo,

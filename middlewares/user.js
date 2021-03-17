@@ -1,5 +1,7 @@
-const { signupSchema, loginSchema } = require('../validation');
-const { getSingleUserByEmail } = require('../services');
+import { signupSchema, loginSchema } from '../validation';
+import { userService } from '../services';
+
+const { getSingleUserByEmail } = userService;
 
 const validateSignup = (req, res, next) => {
   try {
@@ -37,7 +39,7 @@ const checkIfUserExists = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   checkIfUserExists,
   validateLogin,
   validateSignup,

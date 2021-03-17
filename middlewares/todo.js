@@ -1,6 +1,7 @@
-const { todoTitleSchema } = require('../validation');
-const { getSingleTodo } = require('../services');
+import { todoTitleSchema } from '../validation';
+import { todoService } from '../services';
 
+const { getSingleTodo } = todoService;
 const validateTodoTitle = (req, res, next) => {
   try {
     const { error } = todoTitleSchema.validate(req.body);
@@ -37,7 +38,7 @@ const checkIfOwner = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   validateTodoTitle,
   checkIfTodoExists,
   checkIfOwner,

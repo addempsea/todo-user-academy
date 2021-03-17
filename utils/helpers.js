@@ -1,22 +1,23 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const bcrypt = require('bcryptjs');
-const { v4: uuid } = require('uuid');
+import { sign, verify } from 'jsonwebtoken';
+import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
+import { v4 as uuid } from 'uuid';
+// eslint-disable-next-line no-unused-vars
+import dotenv from 'dotenv/config';
 
-const salt = bcrypt.genSaltSync(10);
+const salt = genSaltSync(10);
 
 const jwtSecret = process.env.JWT_SECRET;
 
-const addDataToToken = (data) => jwt.sign(data, jwtSecret, { expiresIn: '1h' });
+const addDataToToken = (data) => sign(data, jwtSecret, { expiresIn: '1h' });
 
-const verifyToken = (token) => jwt.verify(token, jwtSecret, (err, data) => ({ err, data }));
+const verifyToken = (token) => verify(token, jwtSecret, (err, data) => ({ err, data }));
 
-const hashPassword = (password) => bcrypt.hashSync(password, salt);
+const hashPassword = (password) => hashSync(password, salt);
 const comparePassword = (plainPassword, hashedPassword) => (
-  bcrypt.compareSync(plainPassword, hashedPassword));
+  compareSync(plainPassword, hashedPassword));
 
 const generateUUID = () => uuid();
 
-module.exports = {
+export {
   addDataToToken, verifyToken, comparePassword, hashPassword, generateUUID,
 };

@@ -1,13 +1,13 @@
-const express = require('express');
-const logger = require('morgan');
-const mongoose = require('mongoose');
-require('dotenv').config();
+import express, { json } from 'express';
+import logger from 'morgan';
+import mongoose from 'mongoose';
+import { userRouter, todoRouter } from './routes';
 
-const { userRouter, todoRouter } = require('./routes');
+require('dotenv').config();
 
 const app = express();
 
-app.use(express.json());
+app.use(json());
 app.use(logger('dev'));
 
 app.get('/', (req, res) => res.json({ welcome: 'hello' }));

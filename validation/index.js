@@ -1,4 +1,4 @@
-const todoTitleSchema = require('./todo');
-const { signupSchema, loginSchema } = require('./user');
+import todoTitleSchema from './todo';
+import { signupSchema, loginSchema } from './user';
 
-module.exports = { todoTitleSchema, signupSchema, loginSchema };
+export { todoTitleSchema, signupSchema, loginSchema };
