@@ -1,4 +1,4 @@
 const userArray = require('./user');
-const todoArray = require('./todo');
+const TodoModel = require('./todo');
 
-module.exports = { userArray, todoArray };
+module.exports = { userArray, TodoModel };

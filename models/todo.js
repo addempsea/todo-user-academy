@@ -1,11 +1,16 @@
-const todoArray = [
-  {
-    id: '719a6c77-f46e-43ba-bbdb-fd7fa890af72',
-    title: 'Todo 1',
-    isCompleted: false,
-    ownerEmail: 'addempsea@yahoo.com',
-    createdAt: Date.now(),
-  },
-];
+const mongoose = require('mongoose');
 
-module.exports = todoArray;
+const { Schema } = mongoose;
+
+const todoSchema = new Schema(
+  {
+    title: { type: String, required: true, length: 70 },
+    isCompleted: { type: Boolean, default: 'false' },
+    user: { type: Schema.ObjectId, required: true },
+  },
+  { timestamps: true },
+);
+
+const TodoModel = mongoose.model('todo', todoSchema);
+
+module.exports = TodoModel;
